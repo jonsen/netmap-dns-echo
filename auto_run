@@ -1,0 +1,23 @@
+#!/bin/sh
+
+BUILD_DIR=/root/workspace/netmap-release/LINUX
+PWD_DIR=$(pwd)
+
+cd $BUILD_DIR
+make KSRC=/usr/src/linux-3.11.7
+sleep 1
+
+echo "rmmod e1000"
+rmmod e1000
+
+echo "rmmod netmap_lin"
+rmmod netmap_lin
+
+sleep 1
+echo "insmod netmap_lin"
+insmod netmap_lin.ko
+sleep 1
+echo "insmod e1000/e1000.ko"
+insmod e1000/e1000.ko
+
+cd $PWD_DIR
